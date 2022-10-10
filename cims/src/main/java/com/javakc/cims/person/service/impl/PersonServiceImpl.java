@@ -23,7 +23,7 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public int insert(Person entity) {
-        return 0;
+        return personDao.insert(entity);
     }
 
     @Override
@@ -33,12 +33,12 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public int delete(int id) {
-        return 0;
+        return personDao.delete(id);
     }
 
     @Override
     public int deletes(int[] ids) {
-        return 0;
+        return personDao.deletes(ids);
     }
 
     @Override

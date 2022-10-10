@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <!-- 引入配置的资源文件 -->
+    <properties resource="jdbc.properties"/>
+
+    <!-- 可选的编程配置 -->
+    <settings>
+        <!-- 启用驼峰命名封装 -->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!-- 日志输出 -->
+        <setting value="STDOUT_LOGGING" name="logImpl"/>
+    </settings>
+
+    <!-- 为自定义对象提供别名 -->
+    <typeAliases>
+        <!-- 人员 模块 对象 别名注册文件-->
+        <typeAlias  type="com.javakc.cims.person.entity.Person" alias="person"/>
+        <!-- 新   模块 对象 别名注册文件-->
+        <!--<typeAlias alias="新别名" type="com.javakc.cims.新包.entity.新类"/>-->
+    </typeAliases>
+
+    <!--  引入数据库连接池  -->
+    <environments default="development">
+        <!-- 开发环境 -->
+        <environment id="development">
+            <!-- 事务管理器 -->
+            <transactionManager type="JDBC"/>
+            <!-- 连接池 -->
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!-- 装载mybatis映射文件 SQL文件  -->
+    <mappers>
+        <!--  人员 模块     映射文件 注册位置  -->
+        <mapper resource="mappers/PersonMapper.xml"/>
+        <!--  新 模块       映射文件注册位置  -->
+        <!--<mapper resource="mappers/新模块.xml"/>-->
+    </mappers>
+
+</configuration>

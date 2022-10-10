@@ -35,7 +35,11 @@ public class PersonDaoImpl implements PersonDao {
 
     @Override
     public int insert(Person entity) {
-        return 0;
+        SqlSession session = MybatisUtils.openSession();
+        int insert = session.insert("person.insert", entity);
+        session.commit();
+        session.close();
+        return insert;
     }
 
     @Override
@@ -45,12 +49,18 @@ public class PersonDaoImpl implements PersonDao {
 
     @Override
     public int delete(int id) {
-        return 0;
+        SqlSession session = MybatisUtils.openSession(true);
+        int result = session.delete("person.delete", id);
+        session.close();
+        return result;
     }
 
     @Override
     public int deletes(int[] ids) {
-        return 0;
+        SqlSession session = MybatisUtils.openSession(true);
+        int result = session.delete("person.deletes", ids);
+        session.close();
+        return result;
     }
 
     @Override
