@@ -76,4 +76,6 @@ public interface PersonService {
      * @return 符合条件结果集
      */
     public List<Person> queryByPage(Map<String, Object> params);
+
+    public boolean queryByCode(String code);
 }

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -44,9 +45,75 @@ public class PersonController extends HttpServlet {
             this.batch(request, response);
         } else if ("add".equals(tag)) {
             this.add(request, response);
+        } else if ("code".equals(tag)) {
+            this.code(request, response);
+        } else if ("load".equals(tag)) {
+            this.load(request, response);
+        } else if ("update".equals(tag)) {
+            this.update(request, response);
         } else {
             this.page(request, response);
         }
+    }
+
+    protected void load(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String id = request.getParameter("id");
+        Person entity = personService.queryById(Integer.parseInt(id));
+        request.setAttribute("entity",entity);
+        request.getRequestDispatcher("view/person/update.jsp").forward(request,response);
+    }
+
+    protected void update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String id = request.getParameter("id");
+        String name = request.getParameter("name");
+        String code = request.getParameter("code");
+        String unit = request.getParameter("unit");
+        String state = request.getParameter("state");
+        String grade = request.getParameter("grade");
+        String[] subsidies = request.getParameterValues("subsidy");
+        String reason = request.getParameter("reason");
+        Person entity = new Person();
+        entity.setId(Integer.parseInt(id));
+        entity.setName(name);
+        entity.setCode(code);
+        entity.setUnit(unit);
+        if (Validate.isNotEmpty(state) && !"0".equals(state)) {
+            entity.setState(Integer.parseInt(state));
+        } else {
+            response.sendError(400, "请选择人员状态");
+            return;
+        }
+        if (Validate.isNotEmpty(grade) && !"0".equals(grade)) {
+            entity.setGrade(Integer.parseInt(grade));
+        } else {
+            response.sendError(400, "请选择职级");
+            return;
+        }
+        if (Validate.isNotEmpty(subsidies)) {
+            if (subsidies.length == 1) {
+                if (subsidies[0].equals("1")) {
+                    entity.setHeating(1);
+                } else {
+                    entity.setEstate(1);
+                }
+            } else {
+                entity.setEstate(1);
+                entity.setHeating(1);
+            }
+        }
+
+        entity.setReason(reason);
+        personService.update(entity);
+        response.sendRedirect(request.getContextPath() + "/person.do");
+    }
+
+    protected void code(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String code = request.getParameter("code");
+        boolean flag = personService.queryByCode(code);
+        PrintWriter writer = response.getWriter();
+        System.out.println(flag);
+        writer.write(flag + "");
+        writer.close();
     }
 
     protected void add(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -75,9 +142,9 @@ public class PersonController extends HttpServlet {
         }
         if (Validate.isNotEmpty(subsidies)) {
             if (subsidies.length == 1) {
-                if (subsidies[0].equals("1")){
+                if (subsidies[0].equals("1")) {
                     entity.setHeating(1);
-                }else {
+                } else {
                     entity.setEstate(1);
                 }
             } else {
@@ -88,7 +155,7 @@ public class PersonController extends HttpServlet {
 
         entity.setReason(reason);
         personService.insert(entity);
-        response.sendRedirect(request.getContextPath()+"/person.do");
+        response.sendRedirect(request.getContextPath() + "/person.do");
     }
 
     protected void batch(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -102,7 +169,7 @@ public class PersonController extends HttpServlet {
         }
     }
 
-    protected void remove(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void remove(@NotNull HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("id");
         if (Validate.isInteger(id)) {
             personService.delete(Integer.parseInt(id));
@@ -113,7 +180,7 @@ public class PersonController extends HttpServlet {
 
     }
 
-    protected void page(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void page(@NotNull HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Map<String, Object> params = new HashMap<>();
 
         int currentSize = 1;

@@ -2,5 +2,61 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="subsidy">
+    <resultMap id="subsidy" type="subsidy" autoMapping="true">
+        <id property="id" column="id"/>
+        <result property="month" column="month"/>
+        <result property="money" column="money"/>
+        <!-- 一对多级联查询，ofType表示集合中的元素类型 -->
+        <collection property="person" ofType="person" autoMapping="true">
+            <id property="name" column="name"/>
+            <result property="code" column="code"/>
+        </collection>
+    </resultMap>
+
+    <select id="queryByPage" resultMap="subsidy">
+        select c.id,
+               c.month,
+               c.money,
+               c.type,
+               c.reason,
+               c.person_id,
+               p.id,
+               p.name,
+               p.code,
+               p.unit,
+               p.state,
+               p.grade,
+               p.estate,
+               p.heating,
+               p.reason
+        from cims_subsidy c,
+             cims_person p
+        where c.person_id = p.id
+          and c.type = #{type}
+        <if test="null != month and ''!= month">
+        and date_format(c.month,'%Y-%m')= #{month}
+        </if>
+        <if test="null != code and '' != code">
+        and p.code= #{code}
+        </if>
+        <if test="null !=name and ''!=name">
+            and p.name=#{name}
+        </if>
+        order by month desc
+        limit #{startSize},#{pageSize};
+    </select>
+
+    <select id="queryByCount" resultType="long">
+        select count(1) from cims_subsidy c,cims_person p where  c.person_id = p.id and type=#{type}
+        <if test="null != month and ''!= month">
+            and date_format(c.month,'%Y-%m')= #{month}
+        </if>
+        <if test="null != code and '' != code">
+            and p.code= #{code}
+        </if>
+        <if test="null !=name and ''!=name">
+            and p.name=#{name}
+        </if>
+    </select>
 
 </mapper>

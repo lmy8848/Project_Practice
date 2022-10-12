@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="person">
-    <select id="queryAll" resultType="person">
+    <select id="queryAll" resultType="Person" >
         select id,
                name,
                code,
@@ -92,4 +93,37 @@
         insert into cims_person(name, code, unit, state, grade, estate, heating, reason)
         values (#{name}, #{code}, #{unit}, #{state}, #{grade}, #{estate}, #{heating}, #{reason})
     </insert>
+
+    <select id="queryByCode" resultType="int">
+        select count(1)
+        from cims_person
+        where code = #{code}
+    </select>
+
+    <select id="queryById" resultType="Person">
+        select id,
+               name,
+               code,
+               unit,
+               state,
+               grade,
+               estate,
+               heating,
+               reason
+        from cims_person
+        where id = #{id}
+    </select>
+
+    <update id="update">
+        update cims_person
+        set name=#{name},
+            code=#{code},
+            unit=#{unit},
+            state=#{state},
+            grade=#{grade},
+            estate=#{estate},
+            heating=#{heating},
+            reason=#{reason}
+        where id = #{id}
+    </update>
 </mapper>

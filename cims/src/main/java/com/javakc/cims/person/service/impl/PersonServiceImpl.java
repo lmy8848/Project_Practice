@@ -28,7 +28,7 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public int update(Person entity) {
-        return 0;
+        return personDao.update(entity);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public Person queryById(int id) {
-        return null;
+        return personDao.queryById(id);
     }
 
     @Override
@@ -61,4 +61,8 @@ public class PersonServiceImpl implements PersonService {
         return personDao.queryByPage(params);
     }
 
+    @Override
+    public boolean queryByCode(String code) {
+        return personDao.queryByCode(code) == 0;
+    }
 }

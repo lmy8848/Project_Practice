@@ -44,7 +44,10 @@ public class PersonDaoImpl implements PersonDao {
 
     @Override
     public int update(Person entity) {
-        return 0;
+        SqlSession session = MybatisUtils.openSession(true);
+        int update = session.update("person.update", entity);
+        session.close();
+        return update;
     }
 
     @Override
@@ -73,7 +76,10 @@ public class PersonDaoImpl implements PersonDao {
 
     @Override
     public Person queryById(int id) {
-        return null;
+        SqlSession session = MybatisUtils.openSession();
+        Person person = session.selectOne("person.queryById", id);
+        session.close();
+        return person;
     }
 
     @Override
@@ -91,4 +97,14 @@ public class PersonDaoImpl implements PersonDao {
         session.close();
         return list;
     }
+
+    @Override
+    public int queryByCode(String code) {
+        SqlSession session = MybatisUtils.openSession();
+        int result = session.selectOne("person.queryByCode",code);
+        session.close();
+        return result;
+    }
+
+
 }

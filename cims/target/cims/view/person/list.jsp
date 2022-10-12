@@ -17,7 +17,8 @@
     <div class="row">
         <div class="col-sm-12">
             <form action="${ctx}/person.do" class="form-inline" method="post" role="form">
-                <input type="hidden" name="currentSize" value="${requestScope.currentSize}">
+                <%--        原数据 ${requestScope.currentSize}   搜索后默认跳到第一页    --%>
+                <input type="hidden" name="currentSize" value="1">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>人员管理</h5>
@@ -64,10 +65,14 @@
                             <div class="form-group">
                                 <label class="font-noraml">项目：</label>
                                 <div class="checkbox checkbox-inline">
-                                    <input id="checkbox1" type="checkbox" name="estate" value="1" ${requestScope.params.estate==1?'checked':''}><label for="checkbox1">供暖</label>
+                                    <input id="checkbox1" type="checkbox" name="estate"
+                                           value="1" ${requestScope.params.estate==1?'checked':''}><label
+                                        for="checkbox1">供暖</label>
                                 </div>
                                 <div class="checkbox checkbox-inline">
-                                    <input id="checkbox2" type="checkbox" name="heating" value="1" ${requestScope.params.heating==1?'checked':''}><label for="checkbox2">物业</label>
+                                    <input id="checkbox2" type="checkbox" name="heating"
+                                           value="1" ${requestScope.params.heating==1?'checked':''}><label
+                                        for="checkbox2">物业</label>
                                 </div>
                             </div>
                             <button class="btn btn-success" type="submit">搜索</button>
@@ -87,7 +92,9 @@
                         <table class="table table-bordered table-striped table-hover">
                             <thead>
                             <tr>
-                                <th><input type="checkbox" id="checkAll"><button class="btn btn-danger" type="button" id="inverse">反选</button></th>
+                                <th><input type="checkbox" id="checkAll">
+                                    <button class="btn btn-danger" type="button" id="inverse">反选</button>
+                                </th>
                                 <th>#</th>
                                 <th>姓名</th>
                                 <th>证件</th>
@@ -121,8 +128,10 @@
                                         </c:if>
                                     </td>
                                     <td>
-                                        <a action="update" class="btn btn-info btn-rounded btn-sm">编辑</a>
-                                        <a action="remove" class="btn btn-danger btn-rounded btn-sm" href="${ctx}/person.do?id=${entity.id}&tag=remove">删除</a>
+                                        <a action="update" class="btn btn-info btn-rounded btn-sm"
+                                           href="${ctx}/person.do?id=${entity.id}&tag=load">编辑</a>
+                                        <a action="remove" class="btn btn-danger btn-rounded btn-sm"
+                                           href="${ctx}/person.do?id=${entity.id}&tag=remove">删除</a>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -213,33 +222,33 @@
             }
         });
 
-        $('#checkAll').click(function (){
-           $('[name=ids]').prop('checked',this.checked);
+        $('#checkAll').click(function () {
+            $('[name=ids]').prop('checked', this.checked);
         });
-        $('[name=ids]').change(function (){
-          $.checkes();
+        $('[name=ids]').change(function () {
+            $.checkes();
         });
 
         $('#inverse').click(function () {
             let total = $('[name=ids]');
             let checkedS = $('[name=ids]:checked');
-            $(total).not(checkedS).prop('checked',true);
-            $(checkedS).prop('checked',false);
+            $(total).not(checkedS).prop('checked', true);
+            $(checkedS).prop('checked', false);
             $.checkes();
         })
 
         $.extend({
-            checkes:function (){
+            checkes: function () {
                 console.log("ids_change");
                 let total = $('[name=ids]').length;
                 let checkedS = $('[name=ids]:checked').length;
-                $('#checkAll').prop('checked',total===checkedS);
+                $('#checkAll').prop('checked', total === checkedS);
             }
         })
 
-        $('#batch').click(function (){
+        $('#batch').click(function () {
             let total = $('[name=ids]:checked').length;
-            if (total===0){
+            if (total === 0) {
                 swal("批删至少选择一条记录！");
                 return false;
             }
@@ -252,7 +261,7 @@
             })
                 .then((willDelete) => {
                     if (willDelete) {
-                        $('form:first').attr('action','${ctx}/person.do?tag=batch').submit();
+                        $('form:first').attr('action', '${ctx}/person.do?tag=batch').submit();
                         swal("噗，文件已成功删除", {
                             icon: "success",
                         });

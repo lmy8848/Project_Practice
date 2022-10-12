@@ -1,6 +1,9 @@
 package com.javakc.cims.person.dao;
 
 import com.javakc.cims.person.entity.Person;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 import java.util.Map;
@@ -19,6 +22,7 @@ public interface PersonDao {
      * @param entity 实体
      * @return 成功/失败
      */
+    @Select(" ")
     public int insert(Person entity);
 
     /**
@@ -35,6 +39,7 @@ public interface PersonDao {
      * @param id 主键
      * @return 成功/失败
      */
+
     public int delete(int id);
 
     /**
@@ -76,4 +81,7 @@ public interface PersonDao {
      * @return 符合条件结果集
      */
     public List<Person> queryByPage(Map<String, Object> params);
+
+
+    public int queryByCode(String code);
 }

@@ -17,9 +17,9 @@
     <!-- 为自定义对象提供别名 -->
     <typeAliases>
         <!-- 人员 模块 对象 别名注册文件-->
-        <typeAlias  type="com.javakc.cims.person.entity.Person" alias="person"/>
+        <typeAlias   type="com.javakc.cims.person.entity.Person"  alias="person" />
         <!-- 新   模块 对象 别名注册文件-->
-        <!--<typeAlias alias="新别名" type="com.javakc.cims.新包.entity.新类"/>-->
+        <typeAlias  type="com.javakc.cims.subsidy.entity.Subsidy" alias="subsidy"/>
     </typeAliases>
 
     <!--  引入数据库连接池  -->
@@ -43,6 +43,7 @@
         <!--  人员 模块     映射文件 注册位置  -->
         <mapper resource="mappers/PersonMapper.xml"/>
         <!--  新 模块       映射文件注册位置  -->
+        <mapper resource="mappers/SubsidyMapper.xml"/>
         <!--<mapper resource="mappers/新模块.xml"/>-->
     </mappers>
 

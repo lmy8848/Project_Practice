@@ -13,7 +13,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="89a5b709-3092-487d-b81a-7516a886e117" name="变更" comment="项目练习">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/javakc/cims/subsidy/controller/SubsidyController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/javakc/cims/subsidy/dao/SubsidyDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/javakc/cims/subsidy/dao/impl/SubsidyDaoImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/javakc/cims/subsidy/entity/Subsidy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/javakc/cims/subsidy/factory/SubsidyFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/javakc/cims/subsidy/service/SubsidyService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/javakc/cims/subsidy/service/impl/SubsidyServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/js/plugins/validate/custom.validate.js" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/webapp/view/person/add.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/view/person/update.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/view/subsidy/list.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../[汇才同飞教育]Mysql_V1.7.docx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../../maven/webkf_demo" beforeDir="false" afterPath="$PROJECT_DIR$/../../maven/webkf_demo" afterDir="false" />
     </list>
@@ -26,6 +36,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaScript File" />
+        <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -42,6 +54,7 @@
       </GitPushTagMode>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="ROOT_SYNC" value="SYNC" />
   </component>
   <component name="GithubDefaultAccount">
     <option name="defaultAccountId" value="7622d069-83f3-430a-b1aa-2eb5cdcf6703" />
@@ -56,6 +69,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/src/main/resources/mappers/PersonMapper.xml" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/webapp/view/person/list.jsp" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
   </component>
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
@@ -87,12 +101,18 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "F:/HCTF_Vedio/cims/cims/src/main/webapp/view/person",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+    "last_opened_file_path": "F:/HCTF_Vedio/cims/cims/src/main/webapp/view/subsidy",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "vcs.Git"
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.javakc.cims.subsidy.service.impl" />
+      <recent name="com.javakc.cims.subsidy.dao.impl" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\HCTF_Vedio\cims\cims\src\main\webapp\view\subsidy" />
       <recent name="F:\HCTF_Vedio\cims\cims\src\main\webapp\view\person" />
       <recent name="F:\HCTF_Vedio\cims\cims\src\main\webapp\static\js" />
     </key>
@@ -206,7 +226,9 @@
       <workItem from="1665283725396" duration="22837000" />
       <workItem from="1665369191838" duration="7917000" />
       <workItem from="1665386234176" duration="221000" />
-      <workItem from="1665386473642" duration="9740000" />
+      <workItem from="1665386473642" duration="16577000" />
+      <workItem from="1665452578305" duration="26279000" />
+      <workItem from="1665537937349" duration="21256000" />
     </task>
     <task id="LOCAL-00001" summary="项目练习">
       <created>1665214199529</created>

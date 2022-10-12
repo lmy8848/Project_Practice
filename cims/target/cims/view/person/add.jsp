@@ -101,18 +101,49 @@
 <script src="${ctx}/static/js/bootstrap.min.js?v=3.3.5"></script>
 <script src="${ctx}/static/js/content.min.js?v=1.0.0"></script>
 <script src="${ctx}/static/js/plugins/validate/jquery.validate.min.js"></script>
+<script src="${ctx}/static/js/plugins/validate/messages_zh.min.js"></script>
+<script src="${ctx}/static/js/plugins/validate/custom.validate.js"></script>
 <script>
     $(document).ready(function () {
+        let icon = "<i class='fa fa-times-circle'></i>  ";
         $('#personForm').validate({
             rules:{
                 name:{
-                    required: true
+                    required: true,
+                    rangelength:[2,20],
+                    chinese:true
+                },
+                code:{
+                    required:true,
+                    rangelength:[18,18],
+                    remote:{
+                        url:'${ctx}/person.do',
+                        data:{
+                            tag:'code',
+                            code:function (){
+                                return $('[name=code]').val();
+                            }
+                        }
+                    }
+                },
+                unit:{
+                    required:true,
+                    rangelength:[6,50]
                 }
-                
             },
             message:{
                 name:{
-                    required:'人员姓名为必填项'
+                    required:"人员姓名为必填项",
+                    rangelength: '人员姓名为2-20之间'
+                },
+                code: {
+                    required:'人员身份证号不能为空',
+                    rangelength:'身份证号必须为18数字',
+                    remote:icon+'人员证件已存在请重新输入'
+                },
+                unit:{
+                    required:'人员单位必填项',
+                    rangelength:'请正确填写人员单位'
                 }
             }
         });
