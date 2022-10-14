@@ -8,7 +8,7 @@
         <result property="money" column="money"/>
         <!-- 一对多级联查询，ofType表示集合中的元素类型 -->
         <collection property="person" ofType="person" autoMapping="true">
-            <id property="name" column="name"/>
+            <id property="id" column="person_id"/>
             <result property="code" column="code"/>
         </collection>
     </resultMap>
@@ -58,5 +58,25 @@
             and p.name=#{name}
         </if>
     </select>
+
+    <delete id="delete">
+        delete from cims_subsidy where id=#{id}
+    </delete>
+
+    <delete id="deletes">
+        delete from cims_subsidy where id in
+        <foreach collection="array" open="(" close=")" item="id" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="queryById" resultMap="subsidy">
+        select s.id, s.month, s.money, s.type, s.reason, s.person_id, p.id, p.name, p.code, p.unit, p.state, p.grade, p.estate, p.heating, p.reason
+        from cims_subsidy s,cims_person p where s.person_id=p.id and s.id=#{id};
+    </select>
+
+    <update id="update">
+        update cims_subsidy set  money=#{money},reason=#{reason} where id=#{id}
+    </update>
 
 </mapper>

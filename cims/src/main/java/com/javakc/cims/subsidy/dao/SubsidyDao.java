@@ -11,4 +11,11 @@ public interface SubsidyDao {
 
     long queryByCount(int type);
     long queryByCount(Map<String,Object> params);
+
+    int delete(int id);
+    int deletes(int[] ids);
+
+    Subsidy queryById(int id);
+
+    int update(Subsidy subsidy);
 }

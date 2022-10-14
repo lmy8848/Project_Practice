@@ -23,7 +23,9 @@
       <change afterPath="$PROJECT_DIR$/src/main/webapp/static/js/plugins/validate/custom.validate.js" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/webapp/view/person/add.jsp" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/webapp/view/person/update.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/view/subsidy/add.jsp" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/webapp/view/subsidy/list.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/view/subsidy/update.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../[汇才同飞教育]Mysql_V1.7.docx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../../maven/webkf_demo" beforeDir="false" afterPath="$PROJECT_DIR$/../../maven/webkf_demo" afterDir="false" />
     </list>
@@ -100,10 +102,15 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "WebServerToolWindowFactoryState": "false",
+    "WebServerToolWindowFactoryState": "true",
+    "WebServerToolWindowPanel.toolwindow.highlight.mappings": "true",
+    "WebServerToolWindowPanel.toolwindow.highlight.symlinks": "true",
+    "WebServerToolWindowPanel.toolwindow.show.date": "false",
+    "WebServerToolWindowPanel.toolwindow.show.permissions": "false",
+    "WebServerToolWindowPanel.toolwindow.show.size": "false",
     "last_opened_file_path": "F:/HCTF_Vedio/cims/cims/src/main/webapp/view/subsidy",
     "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "vcs.Git"
+    "settings.editor.selected.configurable": "settings.space"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -229,6 +236,14 @@
       <workItem from="1665386473642" duration="16577000" />
       <workItem from="1665452578305" duration="26279000" />
       <workItem from="1665537937349" duration="21256000" />
+      <workItem from="1665624605206" duration="11326000" />
+      <workItem from="1665650008392" duration="296000" />
+      <workItem from="1665650317629" duration="9276000" />
+      <workItem from="1665716013835" duration="1357000" />
+      <workItem from="1665717391187" duration="175000" />
+      <workItem from="1665717580720" duration="204000" />
+      <workItem from="1665717798097" duration="441000" />
+      <workItem from="1665718253639" duration="3242000" />
     </task>
     <task id="LOCAL-00001" summary="项目练习">
       <created>1665214199529</created>

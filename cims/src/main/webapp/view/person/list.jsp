@@ -242,7 +242,7 @@
                 console.log("ids_change");
                 let total = $('[name=ids]').length;
                 let checkedS = $('[name=ids]:checked').length;
-                $('#checkAll').prop('checked', total === checkedS);
+                $('#checkedAll').prop('checked', total === checkedS);
             }
         })
 

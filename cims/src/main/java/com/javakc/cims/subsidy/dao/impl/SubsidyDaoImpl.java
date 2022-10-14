@@ -50,4 +50,36 @@ public class SubsidyDaoImpl implements SubsidyDao {
         session.close();
         return result;
     }
+
+    @Override
+    public int delete(int id) {
+        SqlSession session = MybatisUtils.openSession(true);
+        int result = session.delete("subsidy.delete", id);
+        session.close();
+        return result;
+    }
+
+    @Override
+    public int deletes(int[] ids) {
+        SqlSession session = MybatisUtils.openSession(true);
+        int delete = session.delete("subsidy.deletes",ids);
+        session.close();
+        return delete;
+    }
+
+    @Override
+    public Subsidy queryById(int id) {
+        SqlSession session = MybatisUtils.openSession();
+        Subsidy result = session.selectOne("subsidy.queryById", id);
+        session.close();
+        return result;
+    }
+
+    @Override
+    public int update(Subsidy subsidy) {
+        SqlSession session = MybatisUtils.openSession(true);
+        int result = session.update("subsidy.update", subsidy);
+        session.close();
+        return result;
+    }
 }

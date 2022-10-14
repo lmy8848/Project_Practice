@@ -46,15 +46,18 @@
                         </div>
                         <button class="btn btn-success" type="submit">查询</button>
                         <button class="btn btn-primary" id="save" type="button">添加</button>
-                        <button class="btn btn-danger" type="button">批删</button>
+                        <button class="btn btn-danger" type="button" id="batch">批删</button>
                     </form>
                 </div>
                 <div class="ibox-content">
+                    <form action="${ctx}/subsidy.do?tag=batch&type=${requestScope.type}" id="batch_del" method="post">
                     <table class="table table-bordered table-striped table-hover">
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th><input type="checkbox"></th>
+                            <th><input type="checkbox" id="checkedAll">
+                                <button class="btn btn-danger" type="button" id="inverse">反选</button>
+                            </th>
                             <th>月份</th>
                             <th>单位</th>
                             <th>姓名</th>
@@ -69,7 +72,7 @@
 
                             <tr>
                                 <td>${n.count}</td>
-                                <td><input type="checkbox"></td>
+                                <td><input type="checkbox" name="ids" value="${subsidy.id}"></td>
                                 <td><f:formatDate value="${subsidy.month}" pattern="yyyy年MM月"/></td>
                                 <td>${subsidy.person.unit}</td>
                                 <td>${subsidy.person.name}</td>
@@ -77,13 +80,15 @@
                                 <td>${applicationScope.grade[subsidy.person.grade]}</td>
                                 <td>${subsidy.money}</td>
                                 <td>
-                                    <a class="btn btn-info btn-rounded btn-sm" href="">编辑</a>
-                                    <a class="btn btn-danger btn-rounded btn-sm" href="">删除</a>
+                                    <a class="btn btn-info btn-rounded btn-sm" href="${ctx}/subsidy.do?tag=load&type=${requestScope.type}&id=${subsidy.id}">编辑</a>
+                                    <a class="btn btn-danger btn-rounded btn-sm"
+                                       href="${ctx}/subsidy.do?tag=remove&type=${requestScope.type}&id=${subsidy.id}">删除</a>
                                 </td>
                             </tr>
                         </c:forEach>
                         </tbody>
                     </table>
+                    </form>
                 </div>
                 <div class="ibox-content">
                     <div class="btn-group">
@@ -93,8 +98,8 @@
                             <button class="btn btn-white" type="button">上一页</button>
                         </c:if>
                         <c:if test="${requestScope.currentSize!=requestScope.maxSize&&requestScope.totalSize>0}">
-                        <button class="btn btn-white" type="button">下一页</button>
-                        <button class="btn btn-white" type="button">末页</button>
+                            <button class="btn btn-white" type="button">下一页</button>
+                            <button class="btn btn-white" type="button">末页</button>
                         </c:if>
                         <button class="btn btn-danger" type="button"
                                 disabled>${requestScope.currentSize}/${requestScope.maxSize}/${requestScope.totalSize}</button>
@@ -107,10 +112,13 @@
 <script src="${ctx}/static/js/jquery.min.js?v=2.1.4"></script>
 <script src="${ctx}/static/js/bootstrap.min.js?v=3.3.5"></script>
 <script src="${ctx}/static/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+<script src="${ctx}/static/js/bootstrap.min.js?v=3.3.5"></script>
+<script src="${ctx}/static/js/content.min.js?v=1.0.0"></script>
+<script src="${ctx}/static/js/sweetalert.min.js"></script>
 <script type="application/javascript">
     $(document).ready(function () {
         $('#save').click(function () {
-            window.location.href = './add.html';
+            window.location.href = 'update.html';
         });
 
         let currentSize = '${requestScope.currentSize}';
@@ -130,6 +138,56 @@
             $('form:first').submit();
 
         });
+
+        $('[name=ids]').change(function () {
+            $.checkes();
+        });
+        $.extend({
+            checkes: function () {
+                console.log("ids_change");
+                let total = $('[name=ids]').length;
+                let checkedS = $('[name=ids]:checked').length;
+                $('#checkedAll').prop('checked', total === checkedS);
+            }
+        })
+
+        $('#checkedAll').click(function () {
+            $('[name=ids]').prop('checked', this.checked);
+        });
+        $('#inverse').click(function () {
+            let total = $('[name=ids]');
+            let checkedS = $('[name=ids]:checked');
+            $(total).not(checkedS).prop('checked', true);
+            $(checkedS).prop('checked', false);
+            $.checkes();
+        });
+
+        $('#batch').click(function () {
+            let total = $('[name=ids]:checked').length;
+            if (total === 0) {
+                swal("批删至少选择一条记录！");
+                return false;
+            }
+            swal({
+                title: "你确定要删除吗?",
+                text: "一旦删除，您将无法恢复这条记录！",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        $('#batch_del').submit();
+                        swal("噗，文件已成功删除", {
+                            icon: "success",
+                        });
+                    } else {
+                        swal("您的数据还在，安全的!");
+                    }
+                });
+        });
+
+
         $("#data .input-group.date").datepicker(
             {
                 minViewMode: 1,

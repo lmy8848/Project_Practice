@@ -161,6 +161,7 @@ public class PersonController extends HttpServlet {
     protected void batch(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String[] ids = request.getParameterValues("ids");
         if (Validate.isNotEmpty(ids)) {
+
             int[] array = Arrays.stream(ids).mapToInt(Integer::parseInt).toArray();
             personService.deletes(array);
             response.sendRedirect(request.getContextPath() + "/person.do");

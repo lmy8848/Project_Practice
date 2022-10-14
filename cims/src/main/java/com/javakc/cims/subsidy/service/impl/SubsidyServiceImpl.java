@@ -67,4 +67,24 @@ public class SubsidyServiceImpl implements SubsidyService {
     public long queryByCount(Map<String, Object> params) {
         return subsidyDao.queryByCount(params);
     }
+
+    @Override
+    public int delete(int id) {
+        return subsidyDao.delete(id);
+    }
+
+    @Override
+    public int deletes(int[] ids) {
+        return subsidyDao.deletes(ids);
+    }
+
+    @Override
+    public Subsidy queryById(int id) {
+        return subsidyDao.queryById(id);
+    }
+
+    @Override
+    public int update(Subsidy subsidy) {
+        return subsidyDao.update(subsidy);
+    }
 }
