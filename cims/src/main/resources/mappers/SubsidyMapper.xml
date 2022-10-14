@@ -79,4 +79,13 @@
         update cims_subsidy set  money=#{money},reason=#{reason} where id=#{id}
     </update>
 
+    <select id="querySubsidy" resultType="map">
+        select id, name, code, unit from cims_person where
+        <choose>
+            <when test="_parameter==1">estate=1</when>
+            <otherwise>heating = 1</otherwise>
+        </choose>
+        and id not in (select person_id from cims_subsidy where type=#{type} and date_format(now(),'%Y%m')=date_format(month,'%Y%m'))
+    </select>
+
 </mapper>

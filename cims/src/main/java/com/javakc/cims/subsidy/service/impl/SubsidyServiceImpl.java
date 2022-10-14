@@ -87,4 +87,9 @@ public class SubsidyServiceImpl implements SubsidyService {
     public int update(Subsidy subsidy) {
         return subsidyDao.update(subsidy);
     }
+
+    @Override
+    public List<Map<String, Object>> querySubsidy(int type) {
+        return subsidyDao.querySubsidy(type);
+    }
 }

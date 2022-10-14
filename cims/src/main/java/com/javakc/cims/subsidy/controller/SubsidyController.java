@@ -1,5 +1,6 @@
 package com.javakc.cims.subsidy.controller;
 
+import com.google.gson.Gson;
 import com.javakc.cims.subsidy.entity.Subsidy;
 import com.javakc.cims.subsidy.factory.SubsidyFactory;
 import com.javakc.cims.subsidy.service.SubsidyService;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -36,6 +38,8 @@ public class SubsidyController extends HttpServlet {
         }
         else if ("batch".equals(tag)) {
             this.batch(request, response, type);
+        } else if ("subsidy".equals(tag)) {
+            this.subsidy(request, response, type);
         }
         else if ("load".equals(tag)) {
             this.load(request, response, type);
@@ -46,6 +50,18 @@ public class SubsidyController extends HttpServlet {
             page(request, response, type);
         }
 
+
+    }
+
+    private void subsidy(HttpServletRequest request, HttpServletResponse response, String type)throws ServletException, IOException {
+        List<Map<String, Object>> maps = service.querySubsidy(Validate.isInteger(type) ? Integer.parseInt(type) : 0);
+        Gson gson=new Gson();
+        String s = gson.toJson(maps);
+        response.setContentType("application/json;charset=UTF-8");
+        PrintWriter writer = response.getWriter();
+        writer.write(s);
+        writer.flush();
+        writer.close();
 
     }
 
@@ -128,7 +144,6 @@ public class SubsidyController extends HttpServlet {
         request.setAttribute("totalSize", totalSize);
         request.setAttribute("maxSize", maxSize);
         request.setAttribute("type", type);
-
         request.getRequestDispatcher("view/subsidy/list.jsp").forward(request, response);
     }
 }

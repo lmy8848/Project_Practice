@@ -118,7 +118,7 @@
 <script type="application/javascript">
     $(document).ready(function () {
         $('#save').click(function () {
-            window.location.href = 'update.html';
+            window.location.href = '${ctx}/view/subsidy/add.jsp?type=${requestScope.type}';
         });
 
         let currentSize = '${requestScope.currentSize}';

@@ -82,4 +82,12 @@ public class SubsidyDaoImpl implements SubsidyDao {
         session.close();
         return result;
     }
+
+    @Override
+    public List<Map<String, Object>> querySubsidy(int type) {
+        SqlSession session = MybatisUtils.openSession();
+        List<Map<String,Object>> result = session.selectList("subsidy.querySubsidy");
+        session.close();
+        return result;
+    }
 }

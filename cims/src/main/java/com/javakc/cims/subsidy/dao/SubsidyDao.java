@@ -18,4 +18,6 @@ public interface SubsidyDao {
     Subsidy queryById(int id);
 
     int update(Subsidy subsidy);
+
+    List<Map<String,Object>> querySubsidy(int type);
 }
