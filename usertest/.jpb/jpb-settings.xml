@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DatabaseMigrationSettings" isCreateIndexForFk="true">
+    <database-infos>
+      <database-info>
+        <option name="enabled" value="true" />
+        <dbms-id>mysql</dbms-id>
+      </database-info>
+    </database-infos>
+  </component>
+  <component name="JpaLiquibaseChangesConfig">
+    <exclude-change idName="" tagName="addAutoIncrement" />
+  </component>
+  <component name="JpaPluginProjectSettings">
+    <option name="generateJpaOnGetter" value="true" />
+    <option name="generateSerialVersionUID" value="true" />
+    <option name="generateTypeOnEntity" value="true" />
+    <option name="useConstantsForEntities" value="true" />
+  </component>
+</project>
