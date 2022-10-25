@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javakc.ssm.user.dao.UserDao">
+    <insert id="insert" parameterType="user">
+insert into ssm_user(name, gender, birthday, address)
+    VALUE (#{name},#{gender},#{birthday},#{address})
+    </insert>
+    <update id="update" parameterType="user">
+update ssm_user set name=#{name},gender=#{gender},birthday=#{birthday},address=#{address}
+ where id=#{id}
+    </update>
+    <delete id="delete" parameterType="int">
+    delete from ssm_user where id=#{id}
+    </delete>
+
+    <select id="queryById" resultType="user">
+
+    </select>
+    <select id="queryByCount" resultType="java.lang.Long">
+
+    </select>
+    <select id="queryByPage" resultType="user">
+
+    </select>
+</mapper>
