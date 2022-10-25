@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <context:component-scan base-package="com.javakc.ssm">
+        <!--    排除@Controller 避免springMVC重复扫描造成事务冲突   -->
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+    <!--  加载数据库连接信息  -->
+    <context:property-placeholder location="datasource.properties"/>
+    <!--  DataSource 数据库连接池  -->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="initialSize" value="${jdbc.initialSize}"/>
+        <property name="maxActive" value="10"/>
+    </bean>
+    <!--  数据库事务管理器  -->
+    <bean id="dataSourceTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <constructor-arg ref="dataSource"/>
+    </bean>
+
+    <!--  注入事务管理器  -->
+    <tx:annotation-driven transaction-manager="dataSourceTransactionManager"/>
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--    注入数据源    -->
+        <property name="dataSource" ref="dataSource"/>
+        <!--     扫描指定路径下的所有映射文件   -->
+        <property name="mapperLocations" value="classpath:/mapper/*.xml"/>
+        <!--扫描封装数据的对象 起别名 -->
+        <property name="typeAliasesPackage" value="com.javakc.ssm.*.entity"/>
+
+        <property name="configuration">
+            <!--       Mybatis 核心配置类         -->
+            <bean class="org.apache.ibatis.session.Configuration">
+                <!--           启用驼峰命名封装     -->
+                <property name="mapUnderscoreToCamelCase" value="true"/>
+                <!--          向控制台输出执行SQL日志      -->
+                <property name="logImpl" value="org.apache.ibatis.logging.stdout.StdOutImpl"/>
+            </bean>
+        </property>
+    </bean>
+<!--  Mybatis与spring完美整合  -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.javakc.ssm.*.dao"/>
+<!--     注入Mybatis sqlSessionFactory   -->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+</beans>
